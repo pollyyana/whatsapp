@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
 import 'custom_textfield.dart';
@@ -15,6 +16,26 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
+
+  void login(String email, String password) async {
+  try {
+    // Autentica o usuário com FirebaseAuth
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    // Navega para a tela principal após o login
+    Navigator.pushReplacementNamed(context, '/home');
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Erro ao fazer login: ${e.toString()}'),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +159,4 @@ class _LoginState extends State<Login> {
     );
   }
 
-  // Simulação da função de login
-  void login(String email, String password) {
-    // Aqui você pode adicionar a lógica de autenticação
-    print('Login realizado com email: $email e senha: $password');
-  }
 }

@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/home.dart';
 import 'package:whatsapp/login.dart';
-// import 'package:whatsapp/login.dart';
 import 'package:whatsapp/register.dart';
 
 void main() async {
@@ -45,11 +44,11 @@ class MyApp extends StatelessWidget {
       ),
        initialRoute: "/", // Define a primeira tela
       routes: {
-        "/": (context) =>  Login(), 
-        "/home": (context) => const Home(), 
-        "/cadastro": (context) => const Register(), 
+        "/": (context) => Login(), // Tela inicial
+        "/home": (context) => const Home(), // Tela de home
+        "/cadastro": (context) => const Register(), // Tela de cadastro
       },
     );
   }
 }
-     
+    
