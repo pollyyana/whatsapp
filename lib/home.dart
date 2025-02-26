@@ -13,7 +13,7 @@ class _HomeState extends State<Home> {
    @override
    Widget build(BuildContext context) {
        return Scaffold(
-           appBar: AppBar(title: const Text('Mensagens'),),
+           appBar: AppBar(title: const Text(''),),
            body: Container(),
        );
   }
