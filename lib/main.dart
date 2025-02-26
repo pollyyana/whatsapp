@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Remove a faixa de debug
       theme: ThemeData(
-        brightness: Brightness.dark, // Define o tema como escuro
-        primaryColor: Colors.black, // Cor principal do app
-        scaffoldBackgroundColor: Colors.black, // Fundo padrão das telas
+        brightness: Brightness.light, // Define o tema como escuro
+        primaryColor: Colors.white, // Cor principal do app
+        scaffoldBackgroundColor: Colors.white, // Fundo padrão das telas
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Colors.white), // Define o texto como branco
         ),

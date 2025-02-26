@@ -22,7 +22,8 @@ class _LoginState extends State<Login> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF000000), // Preto no topo
+              Color(0xFFE0E0E0), // Preto no topo
+              Color(0xFF955bab), // Roxo escuro no meio
               Color(0xFF3D0066), // Roxo escuro no meio
               Color(0xFF6C63FF), // Roxo neon na parte inferior
             ],
@@ -41,11 +42,11 @@ class _LoginState extends State<Login> {
                 children: [
                   // Exibição da logo do aplicativo
                   Image.asset(
-                    'assets/lh.jpg', // Caminho da imagem no projeto
-                    width: 180, // Largura da logo
-                    height: 130, // Altura da logo
+                    'assets/mensagem.png', // Caminho da imagem no projeto
+                    width: 280, // Largura da logo
+                    height: 230, // Altura da logo
                   ),
-                  const SizedBox(height: 30), // Espaço abaixo da logo
+                  const SizedBox(height: 10), // Espaço abaixo da logo
 
                   // Campo de entrada para o Email
                   CustomTextField(
@@ -73,9 +74,11 @@ class _LoginState extends State<Login> {
                         // Aqui será implementada a lógica de login futuramente
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF6C63FF), // Cor do botão (roxo neon)
+                        backgroundColor:
+                            const Color(0xFF6C63FF), // Cor do botão (roxo neon)
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12), // Borda arredondada do botão
+                          borderRadius: BorderRadius.circular(
+                              12), // Borda arredondada do botão
                         ),
                       ),
                       child: const Text(
@@ -89,7 +92,8 @@ class _LoginState extends State<Login> {
                     ),
                   ),
 
-                  const SizedBox(height: 20), // Espaço antes do link de cadastro
+                  const SizedBox(
+                      height: 20), // Espaço antes do link de cadastro
 
                   // Link para cadastro de novos usuários
                   GestureDetector(
@@ -103,7 +107,8 @@ class _LoginState extends State<Login> {
                       style: TextStyle(
                         color: Colors.white70, // Cor do texto
                         fontSize: 16, // Tamanho da fonte
-                        decoration: TextDecoration.underline, // Sublinhado para indicar clique
+                        decoration: TextDecoration
+                            .underline, // Sublinhado para indicar clique
                       ),
                     ),
                   ),

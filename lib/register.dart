@@ -23,7 +23,10 @@ class _RegisterState extends State<Register> {
     String email = emailEC.text;
     String senha = senhaEC.text;
 
-    if (nome.isNotEmpty && nome.length >= 3 && email.isNotEmpty && senha.isNotEmpty) {
+    if (nome.isNotEmpty &&
+        nome.length >= 3 &&
+        email.isNotEmpty &&
+        senha.isNotEmpty) {
       print("Nome: $nome, Email: $email, Senha: $senha");
     } else {
       setState(() {
@@ -38,7 +41,11 @@ class _RegisterState extends State<Register> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.black, Color(0xFF6C63FF), Colors.black],
+            colors: [
+              Color(0xFFE0E0E0),
+              Color(0xFF6C63FF),
+              Colors.black,
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -79,7 +86,7 @@ class _RegisterState extends State<Register> {
                     Text(
                       "Vamos iniciar seu cadastro :)",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 19,
                         color: Colors.white70,
                         fontFamily: 'Orbitron',
                       ),
@@ -88,12 +95,16 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 // CAMPOS DE TEXTO USANDO SEU CUSTOMTEXTFIELD
                 CustomTextField(controller: nomeEC, label: "Nome"),
-                CustomTextField(controller: emailEC, label: "E-mail", keyboardType: TextInputType.emailAddress),
-                CustomTextField(controller: senhaEC, label: "Senha", obscureText: true),
-                
+                CustomTextField(
+                    controller: emailEC,
+                    label: "E-mail",
+                    keyboardType: TextInputType.emailAddress),
+                CustomTextField(
+                    controller: senhaEC, label: "Senha", obscureText: true),
+
                 // BOTÃO DE CADASTRO
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 10),
@@ -112,7 +123,7 @@ class _RegisterState extends State<Register> {
                       child: const Text(
                         "Cadastrar",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -123,27 +134,25 @@ class _RegisterState extends State<Register> {
                 Center(
                   child: Text(
                     mensagemError,
-                    style: const TextStyle(color: Colors.red, fontSize: 17),  
+                    style: const TextStyle(color: Colors.red, fontSize: 17),
                   ),
                 ),
                 const SizedBox(
-                   height: 40,
+                  height: 40,
                 ),
                 // LINK PARA LOGIN
                 Align(
-                  alignment:AlignmentDirectional.bottomEnd,
+                  alignment: AlignmentDirectional.bottomEnd,
                   child: GestureDetector(
-                    
-                      child: const Text(
-                        'Voltar para o login',
-                        style: TextStyle(color: Colors.white70, fontSize: 14),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+                    child: const Text(
+                      'Voltar para o login',
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
                     ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-              
               ],
             ),
           ),
