@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp/home.dart';
 import 'package:whatsapp/login.dart';
+// import 'package:whatsapp/login.dart';
+import 'package:whatsapp/register.dart';
 
 void main() async {
   // Garante que os bindings do Flutter estejam inicializados antes de rodar o Firebase
@@ -38,8 +41,15 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Colors.white), // Define o texto como branco
         ),
+        
       ),
-      home: Login(), // Define a tela inicial como a tela de login
+       initialRoute: "/", // Define a primeira tela
+      routes: {
+        "/": (context) =>  Login(), 
+        "/home": (context) => const Home(), 
+        "/cadastro": (context) => const Register(), 
+      },
     );
   }
 }
+     
