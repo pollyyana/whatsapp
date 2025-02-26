@@ -18,11 +18,16 @@ class _RegisterState extends State<Register> {
 
   void register(String name, String email, String password) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      // Cria o usuário no FirebaseAuth
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      // Atualiza o nome do usuário no FirebaseAuth
+      await userCredential.user?.updateDisplayName(name);
+
+      // Usuário já está logado após o cadastro
       Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -57,8 +62,14 @@ class _RegisterState extends State<Register> {
               child: Form(
                 key: formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Image.asset(
+                      'assets/mensagem.png',
+                      width: 280,
+                      height: 230,
+                    ),
+                    const SizedBox(height: 10),
+
                     const Text(
                       'Seja bem-vindo!',
                       style: TextStyle(
@@ -68,11 +79,13 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     const SizedBox(height: 20),
+
                     CustomTextField(
                       controller: nameEC,
                       label: 'Nome',
                       validator: Validatorless.required('O campo nome é obrigatório'),
                     ),
+
                     CustomTextField(
                       controller: emailEC,
                       label: 'Email',
@@ -82,6 +95,7 @@ class _RegisterState extends State<Register> {
                         Validatorless.email('Digite um e-mail válido'),
                       ]),
                     ),
+
                     CustomTextField(
                       controller: passwordEC,
                       label: 'Senha',
@@ -91,7 +105,9 @@ class _RegisterState extends State<Register> {
                         Validatorless.min(6, 'A senha deve ter pelo menos 6 caracteres'),
                       ]),
                     ),
+
                     const SizedBox(height: 25),
+
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.6,
                       height: 55,
@@ -121,6 +137,20 @@ class _RegisterState extends State<Register> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Text(
+                        'Já tem conta? Faça login',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
