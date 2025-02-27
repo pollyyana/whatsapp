@@ -5,108 +5,96 @@ import 'custom_textfield.dart';
 import 'register.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final String initialEmail;
+
+  const Login({super.key, this.initialEmail = ""});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  // Controladores para capturar os dados dos campos de email e senha
   final formKey = GlobalKey<FormState>();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
 
-  void login(String email, String password) async {
-  try {
-    // Autentica o usuário com FirebaseAuth
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-
-    // Navega para a tela principal após o login
-    Navigator.pushReplacementNamed(context, '/home');
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Erro ao fazer login: ${e.toString()}'),
-        backgroundColor: Colors.red,
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    emailEC.text = widget.initialEmail; // Mantém o e-mail preenchido
   }
-}
+
+  void login(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pushReplacementNamed(context, '/home');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao fazer login: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // Definição do fundo com um gradiente que começa preto e transita para roxo neon
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFE0E0E0), // Preto no topo
-              Color(0xFF955bab), // Roxo escuro no meio
-              Color(0xFF3D0066), // Roxo escuro no meio
-              Color(0xFF6C63FF), // Roxo neon na parte inferior
+              Color(0xFFE0E0E0),
+              Color(0xFF955bab),
+              Color(0xFF3D0066),
+              Color(0xFF6C63FF),
             ],
-            begin: Alignment.topCenter, // Início do gradiente no topo
-            end: Alignment.bottomCenter, // Final do gradiente na parte inferior
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0), // Define um espaçamento lateral uniforme
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Center(
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center, // Centraliza os elementos
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Exibição da logo do aplicativo
-                    Image.asset(
-                      'assets/mensagem.png', // Caminho da imagem no projeto
-                      width: 280, // Largura da logo
-                      height: 230, // Altura da logo
-                    ),
-                    const SizedBox(height: 10), // Espaço abaixo da logo
-
-                    // Campo de entrada para o Email
+                    Image.asset('assets/mensagem.png', width: 280, height: 230),
+                    const SizedBox(height: 10),
                     CustomTextField(
-                      controller: emailEC, // Controlador do campo
-                      label: 'Email', // Texto do label
-                      keyboardType: TextInputType.emailAddress, // Tipo de teclado
+                      controller: emailEC,
+                      label: 'Email',
+                      keyboardType: TextInputType.emailAddress,
                       validator: Validatorless.multiple([
                         Validatorless.required('O campo e-mail é obrigatório'),
                         Validatorless.email('Digite um e-mail válido'),
                       ]),
                     ),
-
-                    // Campo de entrada para a Senha
                     CustomTextField(
-                      controller: passwordEC, // Controlador do campo
-                      label: 'Senha', // Texto do label
-                      obscureText: true, // Oculta a senha ao digitar
+                      controller: passwordEC,
+                      label: 'Senha',
+                      obscureText: true,
                       validator: Validatorless.multiple([
                         Validatorless.required('O campo senha é obrigatório'),
                         Validatorless.min(6, 'A senha deve ter pelo menos 6 caracteres'),
                       ]),
                     ),
-
-                    const SizedBox(height: 25), // Espaçamento antes do botão
-
-                    // Botão de Login
+                    const SizedBox(height: 25),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6, // Define 60% da largura da tela
-                      height: 55, // Altura do botão
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: 55,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Validação do formulário
                           if (formKey.currentState?.validate() ?? false) {
-                            // Se os campos forem válidos, chama a função de login
                             login(emailEC.text, passwordEC.text);
                           } else {
-                            // Exibe uma mensagem de erro caso os campos sejam inválidos
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Campos inválidos, verifique os dados informados!'),
@@ -116,36 +104,33 @@ class _LoginState extends State<Login> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6C63FF), // Cor do botão (roxo neon)
+                          backgroundColor: const Color(0xFF6C63FF),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // Borda arredondada do botão
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         child: const Text(
-                          'Entrar', // Texto do botão
+                          'Entrar',
                           style: TextStyle(
-                            color: Colors.white, // Cor do texto branco
-                            fontSize: 20, // Tamanho da fonte
-                            fontWeight: FontWeight.bold, // Texto em negrito
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
-
-                    const SizedBox(height: 20), // Espaço antes do link de cadastro
-
-                    // Link para cadastro de novos usuários
+                    const SizedBox(height: 20),
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Register()), // Navega para a tela de cadastro
+                        MaterialPageRoute(builder: (context) => Register()),
                       ),
                       child: const Text(
-                        'Não tem conta? Cadastre-se', // Texto do link
+                        'Não tem conta? Cadastre-se',
                         style: TextStyle(
-                          color: Colors.white70, // Cor do texto
-                          fontSize: 16, // Tamanho da fonte
-                          decoration: TextDecoration.underline, // Sublinhado para indicar clique
+                          color: Colors.white70,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
@@ -158,5 +143,4 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
 }
